@@ -22,7 +22,7 @@ var fight = function (enemyName) {
         );
         console.log(promptFight);
 
-        // If player chooses to skip
+        // If player chooses to skip, confirm and then stop the loop.
         if (promptFight === 'skip' || promptFight === 'SKIP') {
             // Confirm player wants to skip
             var confirmSkip = window.confirm('Are you sure you want to quit?');
@@ -35,42 +35,62 @@ var fight = function (enemyName) {
                 console.log('playerMoney', playerMoney);
                 break;
             }
-            // if no (false), ask question again by running fight() again
-            else {
-                fight();
+        }
+
+        // if player choses to fight, then fight
+        if (promptFight === 'fight' || promptFight === 'FIGHT') {
+            // Remove enemy's health by subtracting the amount set in the playerAttack variable.
+            enemyHealth = enemyHealth - playerAttack;
+            // Log a resulting message to the console so we know that it worked.
+            console.log(
+                playerName +
+                    ' attacked ' +
+                    enemyName +
+                    '. ' +
+                    enemyName +
+                    ' now has ' +
+                    enemyHealth +
+                    ' heath remaining.'
+            );
+
+            // check enemy's health
+            if (enemyHealth <= 0) {
+                window.alert(enemyName + ' has died!');
+
+                // Award player money for winning!
+                playerMoney = playerMoney + 20;
+                console.log(playerMoney);
+
+                // Leave while() loop since enemy is dead
+                break;
+            } else {
+                window.alert(enemyName + ' still has ' + enemyHealth + ' health remaining.');
             }
-        }
 
-        // Remove enemy's health by subtracting the amount set in the playerAttack variable.
-        enemyHealth = enemyHealth - playerAttack;
-        // Log a resulting message to the console so we know that it worked.
-        console.log(
-            playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' heath remaining.'
-        );
-
-        // check enemy's health
-        if (enemyHealth <= 0) {
-            window.alert(enemyName + ' has died!');
-            break;
+            // Remove player's health by subtracting the amount set in the enemyAttack variable.
+            playerHealth = playerHealth - enemyAttack;
+            // Log a resulting message to the console so we know that it worked.
+            console.log(
+                enemyName +
+                    ' attacked ' +
+                    playerName +
+                    '. ' +
+                    playerName +
+                    ' now has ' +
+                    playerHealth +
+                    ' heath remaining.'
+            );
+            // check player's health
+            if (playerHealth <= 0) {
+                window.alert(playerName + ' has died!');
+                // Leave while() loop is player is dead
+                break;
+            } else {
+                window.alert(playerName + ' still has ' + playerHealth + ' health remaining.');
+            }
         } else {
-            window.alert(enemyName + ' still has ' + enemyHealth + ' health remaining.');
+            window.alert('You need to choose a valid option. Try again!');
         }
-
-        // Remove player's health by subtracting the amount set in the enemyAttack variable.
-        playerHealth = playerHealth - enemyAttack;
-        // Log a resulting message to the console so we know that it worked.
-        console.log(
-            enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' heath remaining.'
-        );
-        // check player's health
-        if (playerHealth <= 0) {
-            window.alert(playerName + ' has died!');
-        } else {
-            window.alert(playerName + ' still has ' + playerHealth + ' health remaining.');
-        }
-        // *  else {
-        // *    window.alert('You need to choose a valid option. Try again!');
-        // *}
     }
 };
 
