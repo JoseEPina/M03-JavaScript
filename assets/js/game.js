@@ -10,6 +10,14 @@ var enemyNames = ['Roborto', 'Android Amy', 'Robo Trumble'];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+// function to generate a random numeric value
+
+var randomNumber = function (min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+    return value;
+};
+
 var fight = function (enemyName) {
     // Repeat this code and execute as long as the enemy-robot is alive
     while (playerHealth > 0 && enemyHealth > 0) {
@@ -28,7 +36,7 @@ var fight = function (enemyName) {
             if (confirmSkip) {
                 window.alert(playerName + ' has chosen to skip this fight! Goodbye!');
                 // Subtract money from playerMoney for skipping
-                playerMoney = playerMoney - 10;
+                playerMoney = Math.max(0, playerMoney - 10);
                 console.log('playerMoney', playerMoney);
                 break;
             }
@@ -36,8 +44,10 @@ var fight = function (enemyName) {
 
         // if player choses to fight, then fight
         if (promptFight === 'fight' || promptFight === 'FIGHT') {
-            // Remove enemy's health by subtracting the amount set in the playerAttack variable.
-            enemyHealth = enemyHealth - playerAttack;
+            // generate random damage value based on the player's attack power
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+            // Remove enemy's health by subtracting the amount set in the damage variable.
+            enemyHealth = Math.max(0, enemyHealth - damage);
             // Log a resulting message to the console so we know that it worked.
             console.log(
                 playerName +
@@ -64,8 +74,10 @@ var fight = function (enemyName) {
                 window.alert(enemyName + ' still has ' + enemyHealth + ' health remaining.');
             }
 
+            var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
             // Remove player's health by subtracting the amount set in the enemyAttack variable.
-            playerHealth = playerHealth - enemyAttack;
+            playerHealth = Math.max(0, playerHealth - damage);
             // Log a resulting message to the console so we know that it worked.
             console.log(
                 enemyName +
@@ -110,7 +122,7 @@ var startGame = function () {
             // Pick new enemy to fight based on the index of the enemyNames array
             var pickedEnemyName = enemyNames[i];
             // Reset enemyHealth before starting new fight
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40, 60);
 
             // Use Debugger to pause scrip from running and check what's happening at that moment in the code
             // debugger;
