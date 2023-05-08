@@ -5,9 +5,21 @@ var randomNumber = function (min, max) {
     return value;
 };
 
-// Player object declaration
+// New function to set up a name
+var getPlayerName = function () {
+    var name = '';
+    // **ADD while LOOP HERE WITH PROMPT AND CONDITION**
+    while (name === '' || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+
+    console.log("Your robot's name is " + name);
+    return name;
+};
+
+/* Player object declaration */
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -65,7 +77,7 @@ var fight = function (enemy) {
                 window.alert(playerInfo.name + ' has chosen to skip this fight! Goodbye!');
                 // Subtract money from playerMoney for skipping
                 playerInfo.money = Math.max(0, playerInfo.money - 10);
-                console.log('playerInfo.money is now $', playerInfo.money + 'after choosing to skip.');
+                console.log('playerInfo.money is now $' + playerInfo.money + ' after choosing to skip.');
                 break;
             }
         }
@@ -133,8 +145,6 @@ var fight = function (enemy) {
 
 // function to start a new game
 var startGame = function () {
-    debugger;
-
     //reset player stats
     playerInfo.reset();
 
@@ -145,13 +155,12 @@ var startGame = function () {
         if (playerInfo.health > 0) {
             // Let player know what round they are in, remember that array start at 0 so it needs to have 1 added to it.
             window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
+            // Use Debugger to pause scrip from running and check what's happening at that moment in the code
+            //debugger;
             // Pick new enemy to fight based on the index of the enemyInfo object array
             var pickedEnemyObj = enemyInfo[i];
             // Reset enemy.health before starting new fight
             pickedEnemyObj.health = randomNumber(40, 60);
-
-            // Use Debugger to pause scrip from running and check what's happening at that moment in the code
-            // debugger;
 
             // Pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemy.name parameter.
             fight(pickedEnemyObj);
