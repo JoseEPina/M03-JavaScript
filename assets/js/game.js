@@ -5,7 +5,7 @@ var randomNumber = function (min, max) {
 };
 
 // New function to set up a name
-var getPlayerName = function () {   
+var getPlayerName = function () {
     var name = '';
     // **ADD while LOOP HERE WITH PROMPT AND CONDITION**
     while (name === '' || name === null) {
@@ -61,16 +61,16 @@ var fightOrSkip = function () {
     // Ask the player if they would like to fight or skip the fight.
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
+    // user this built-in method to force a lowercase response from the user ALWAYS
+    promptFight = promptFight.toLowerCase();
+    console.log(promptFight);
     // *Conditional Recursive Function Call here!* /
-    // if the `promptFight` is NOT a valid value, then execute the following statements:
-    if (!promptFight) {
+    // if the `promptFight` is NOT a valid value OR the correct word is not entered, THEN execute the following statements:
+    if (!promptFight || (promptFight != 'fight' && promptFight != 'skip')) {
         window.alert('You need to provide a valid answer! Please try again.');
         return fightOrSkip();
     }
     // * */
-    // user this built-in method to force a lowercase response from the user ALWAYS
-    promptFight = promptFight.toLowerCase();
-    console.log(promptFight);
 
     // If player chooses to skip, confirm and then stop the loop.
     if (promptFight === 'skip') {
