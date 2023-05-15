@@ -224,13 +224,28 @@ var startGame = function () {
 
 // function to end the entire game
 var endGame = function () {
-    // if the player is still alive, player wins!
-    if (playerInfo.health > 0) {
-        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + '.');
+    // *Alert the player that the game has ended. Then check the high score.
+    window.alert("The game has now ended. Let's see how you did!");
+
+    // Check the localStorage for the high score. (IF it's not there, then set to 0.)
+    var highScore = localStorage.getItem('highscore');
+
+    // ? Short circuit conditional statement:
+    // ? If the variable on the left of the || is truthy, then use it for the assignment value.
+    // ? But if that variable is falsy, then use the value on the right of the || for the assignment value.
+    highScore = highScore || 0;
+
+    // if player has more money than the current high score, then set player 'money amount' as new high score.
+    if (playerInfo.money > highScore) {
+        localStorage.setItem('highscore', playerInfo.money);
+        localStorage.setItem('name', playerInfo.name);
+
+        alert(playerInfo.name + ' now has the high score of ' + playerInfo.money + '!');
     } else {
-        window.alert("You've lost your robot in battle.");
+        alert(playerInfo.name + ' did not beat the high score of ' + highScore + '. Maybe next time!');
     }
-    // ask player if they'd like to play again
+
+    // Ask the player if they'd like to play again
     var playAgainConfirm = window.confirm('Would you like to play again?');
 
     if (playAgainConfirm) {
