@@ -226,6 +226,7 @@ var shop = function () {
         'Would you like to REFILL your health, UPGRADE your attack or LEAVE the store? Please enter 1 for REFILL, 2 for UPGRADE or 3 to LEAVE.'
     );
 
+    // built-in function to convert string number into a integer number      
     shopOptionPrompt = parseInt(shopOptionPrompt);
 
     // use switch to carry out the action
